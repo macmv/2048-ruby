@@ -1,9 +1,34 @@
+require 'paint'
 
 def print_board(board)
   board.each do |row|
     row.each do |let|
-      print let
-      print " " * (4 - let.to_s.length)
+      if let == 2
+        print Paint[let, [50, 250, 50]]
+      elsif let == 4
+        print Paint[let, [50, 200, 150]]
+      elsif let == 8
+        print Paint[let, [50, 150, 250]]
+      elsif let == 16
+        print Paint[let, [150, 100, 250]]
+      elsif let == 32
+        print Paint[let, [250, 250, 100]]
+      elsif let == 64
+        print Paint[let, [250, 200, 150]]
+      elsif let == 128
+        print Paint[let, [250, 150, 200]]
+      elsif let == 256
+        print Paint[let, [250, 100, 150]]
+      elsif let == 512
+        print Paint[let, [250, 50, 100]]
+      elsif let == 1024
+        print Paint[let, [250, 250, 250]]
+      elsif let == 2048
+        print Paint[let, [150, 150, 150]]
+      else
+        print " " * let.to_s.length
+      end
+      print " " * (5 - let.to_s.length)
     end
     puts
     puts
