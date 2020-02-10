@@ -79,6 +79,23 @@ board = []
 end
 
 while true
+  empty = true
+  board.each do |row|
+    row.each do |item|
+      if item == 0
+        empty = false
+        break
+      end
+    end
+    if !empty
+      break
+    end
+  end
+  if empty
+    print_board(board)
+    puts "Game Over"
+    break
+  end
   while true
     x = rand(4)
     y = rand(4)
