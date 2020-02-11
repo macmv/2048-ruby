@@ -1,4 +1,5 @@
 require 'paint'
+require 'io/console'
 
 def print_board(board)
   board.each do |row|
@@ -68,52 +69,57 @@ def update_board(board, dir)
   end
 end
 
-board = []
+def run_game
+  board = []
 
-4.times do |y|
-  row = []
-  4.times do |x|
-    row.push 0
+  4.times do |y|
+    row = []
+    4.times do |x|
+      row.push 0
+    end
+    board.push row
   end
-  board.push row
-end
 
-while true
-  empty = true
-  board.each do |row|
-    row.each do |item|
-      if item == 0
-        empty = false
+  while true
+    empty = true
+    board.each do |row|
+      row.each do |item|
+        if item == 0
+          empty = false
+          break
+        end
+      end
+      if !empty
         break
       end
     end
-    if !empty
+    if empty
+      print_board(board)
+      puts "Game Over"
       break
     end
-  end
-  if empty
+    while true
+      x = rand(4)
+      y = rand(4)
+      if board[y][x] == 0
+        board[y][x] = 2
+        break
+      end
+    end
     print_board(board)
-    puts "Game Over"
-    break
-  end
-  while true
-    x = rand(4)
-    y = rand(4)
-    if board[y][x] == 0
-      board[y][x] = 2
-      break
+    print("Enter Direction: (w a s d): ")
+    dir = STDIN.getch
+    while true
+      if ["w", "a", "s", "d"].include? dir
+        break
+      end
+      puts
+      print("Please enter a valid direction: ")
+      dir = STDIN.getch
     end
+    puts
+    update_board(board, dir)
   end
-  print_board(board)
-  print("Enter Direction: (w a s d): ")
-  dir = gets.chomp
-  while true
-    if ["w", "a", "s", "d"].include? dir
-      break
-    end
-    print("Please enter a valid direction: ")
-    dir = gets.chomp
-  end
-  update_board(board, dir)
 end
 
+run_game
